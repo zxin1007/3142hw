@@ -31,6 +31,8 @@ int main() {
 
   ifstream in_stream;
   in_stream.open("data.csv"); //opening the file.
+  ofstream myfile;
+  myfile.open ("lab01_output.txt");
 
   if (!in_stream.fail()) { //if the file is open
 
@@ -71,16 +73,74 @@ int main() {
     in_stream.close(); //closing the file cout << "Number of entries: " << i-1 << endl;
 
    } else {
-    cout << "Unable to open file"; 
+    myfile << "Unable to open file"; 
    }
  
-  //output values 
-  cout << "SKU" << "\t" << "Brand" << "\t" << "Year" << endl; 
+  //output values sku,brand,category,year,price
+  myfile << "SKU" << "\t\t" << "Brand" << "\t" << "Category" << "\t" << "Year" << "\t" << "Price" << endl; 
 
   for (int j = 0; j < vSKU.size(); j++) {
-    cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
+    myfile << vSKU[j] << "\t\t" << vBrand[j] << "\t\t" << vCategory[j] << "\t\t\t" << vYear[j] << "\t" << vPrice[j] << endl;
+  }
+  myfile << endl;
+
+  vector<string> :: iterator it;
+
+  vector<string> uniqueBrand = vBrand;
+  sort(uniqueBrand.begin(), uniqueBrand.end());
+  it = unique(uniqueBrand.begin(), uniqueBrand.end());
+  uniqueBrand.resize(distance(uniqueBrand.begin(), it));
+
+  for (int j=0; j<uniqueBrand.size(); j++){
+    float sum= 0;
+    int count =0;
+    for (int x=0; x<vBrand.size(); x++){
+      if (uniqueBrand[j]==vBrand[x]){
+        sum+=vPrice[x];
+        count+=1;
+      }
+    }
+    myfile << uniqueBrand[j] << " with average price: " << sum/count << endl;
+  }
+  myfile << endl;
+
+  vector<string> uniqueCatagory = vCategory;
+  sort(uniqueCatagory.begin(), uniqueCatagory.end());
+  it = unique(uniqueCatagory.begin(), uniqueCatagory.end());
+  uniqueCatagory.resize(distance(uniqueCatagory.begin(), it));
+
+  for (int j=0; j<uniqueCatagory.size(); j++){
+    float sum= 0;
+    int count = 0;
+    for (int x=0; x<vCategory.size(); x++){
+      if (uniqueCatagory[j]==vCategory[x]){
+        sum+=vPrice[x];
+        count+=1;
+      }
+    }
+    myfile << uniqueCatagory[j] << " with average price: " << sum/count << endl;
   }
 
-  cout << endl;
+  myfile << endl;
 
+  vector<int> unqiueYear = vYear;
+  vector<int> :: iterator itSKU;
+  sort(unqiueYear.begin(), unqiueYear.end());
+  itSKU = unique(unqiueYear.begin(), unqiueYear.end());
+  unqiueYear.resize(distance(unqiueYear.begin(), itSKU));
+
+  for (int j=0; j<unqiueYear.size(); j++){
+    string skus= "";
+    int count =0;
+    for (int x=0; x<vYear.size(); x++){
+      if (unqiueYear[j]==vYear[x]){
+        skus += to_string(vSKU[x]);
+        skus += " ";
+        count+=1;
+      }
+    }
+    myfile << unqiueYear[j] << " ( " << count << " ) " << skus << endl;
+  }
+  in_stream.close();
+  myfile.close();
 }
