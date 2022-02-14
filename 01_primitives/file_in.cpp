@@ -11,6 +11,10 @@ All programs must be able to compile in C++98 standard (the default version on L
 
 */
 
+/*
+  Zixin Zou
+*/
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -34,6 +38,7 @@ int main() {
   ofstream myfile;
   myfile.open ("lab01_output.txt");
 
+//1. reads all lines of the input file
   if (!in_stream.fail()) { //if the file is open
 
     string line;
@@ -45,6 +50,7 @@ int main() {
     stringstream str(line);
     // cout << line;
 
+    //read in the line
     getline(str,sku,',');
     stringstream ssku(sku); 
     int iSKU = 0;
@@ -84,14 +90,16 @@ int main() {
   }
   myfile << endl;
 
+//2. calculate the average price per brand
   vector<string> :: iterator it;
 
-  vector<string> uniqueBrand = vBrand;
-  sort(uniqueBrand.begin(), uniqueBrand.end());
-  it = unique(uniqueBrand.begin(), uniqueBrand.end());
-  uniqueBrand.resize(distance(uniqueBrand.begin(), it));
+  vector<string> uniqueBrand = vBrand; //make a copy of vBrand
+  sort(uniqueBrand.begin(), uniqueBrand.end()); //sort the uniqueBrand
+  it = unique(uniqueBrand.begin(), uniqueBrand.end()); //remove duplicates that next to each other
+  uniqueBrand.resize(distance(uniqueBrand.begin(), it)); // resize the vector
 
-  for (int j=0; j<uniqueBrand.size(); j++){
+//iterate through uniqueBrand, add the price of that brand into sum if brand match to the uniqueBrand
+  for (int j=0; j<uniqueBrand.size(); j++){ 
     float sum= 0;
     int count =0;
     for (int x=0; x<vBrand.size(); x++){
@@ -104,11 +112,13 @@ int main() {
   }
   myfile << endl;
 
-  vector<string> uniqueCatagory = vCategory;
-  sort(uniqueCatagory.begin(), uniqueCatagory.end());
-  it = unique(uniqueCatagory.begin(), uniqueCatagory.end());
-  uniqueCatagory.resize(distance(uniqueCatagory.begin(), it));
+//calculate average price per category 
+  vector<string> uniqueCatagory = vCategory; //make a copy of vCategory
+  sort(uniqueCatagory.begin(), uniqueCatagory.end()); //sort the uniqueCatagory
+  it = unique(uniqueCatagory.begin(), uniqueCatagory.end()); //remove duplicates
+  uniqueCatagory.resize(distance(uniqueCatagory.begin(), it)); // resize the vector
 
+//iterate through uniqueCatagory, add the price of that catagory into sum if brand match to the uniqueCatagory
   for (int j=0; j<uniqueCatagory.size(); j++){
     float sum= 0;
     int count = 0;
@@ -123,12 +133,14 @@ int main() {
 
   myfile << endl;
 
-  vector<int> unqiueYear = vYear;
+//for each unique year, list the count of skus and also print out the skus as a list
+  vector<int> unqiueYear = vYear;//make a copy of vYear
   vector<int> :: iterator itSKU;
-  sort(unqiueYear.begin(), unqiueYear.end());
-  itSKU = unique(unqiueYear.begin(), unqiueYear.end());
-  unqiueYear.resize(distance(unqiueYear.begin(), itSKU));
+  sort(unqiueYear.begin(), unqiueYear.end()); //sort the unqiueYear
+  itSKU = unique(unqiueYear.begin(), unqiueYear.end()); //remove duplicates
+  unqiueYear.resize(distance(unqiueYear.begin(), itSKU)); // resize the vector
 
+//iterate through unqiueYear,find all the sku with that uniqueYear and count the number of it
   for (int j=0; j<unqiueYear.size(); j++){
     string skus= "";
     int count =0;
