@@ -146,12 +146,11 @@ int main() {
     int count =0;
     for (int x=0; x<vYear.size(); x++){
       if (unqiueYear[j]==vYear[x]){
-        skus += to_string(vSKU[x]);
-        skus += " ";
+        skus += " "+ to_string(vSKU[x]) + ",";
         count+=1;
       }
     }
-    myfile << unqiueYear[j] << " ( " << count << " ) " << skus << endl;
+    myfile << unqiueYear[j] << " ( " << count << " ):" << skus.substr(0, skus.size()-1) << endl;
   }
   in_stream.close();
   myfile.close();
