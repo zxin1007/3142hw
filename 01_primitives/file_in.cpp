@@ -146,7 +146,13 @@ int main() {
     int count =0;
     for (int x=0; x<vYear.size(); x++){
       if (unqiueYear[j]==vYear[x]){
-        skus += " "+ to_string(vSKU[x]) + ",";
+        
+        string str;
+        stringstream ss;  
+        ss << vSKU[x];  
+        ss >> str; 
+
+        skus += " "+ str + ",";
         count+=1;
       }
     }
