@@ -156,7 +156,7 @@ int main() {
         count+=1;
       }
     }
-    myfile << unqiueYear[j] << " ( " << count << " ):" << skus.substr(0, skus.size()-1) << endl;
+    myfile << unqiueYear[j] << " (" << count << "):" << skus.substr(0, skus.size()-1) << endl;
   }
   in_stream.close();
   myfile.close();
