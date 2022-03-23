@@ -67,7 +67,8 @@ struct Calculator{
 
 int main() {
 
-    string testcase []= { "1+2*3", "(17+2*2)/(10-2)", "9^(1/2)", "4+1/8*1", "3(3*3)-12" ,"3(9^(1/2))", "-10+1", "2*(1/2)"};
+    //test cases
+    string testcase []= { "1+2*3", "(17+2*2)/(10-2)", "9^(1/2)", "4+1/8*1", "3(3*3)-12" ,"3(9^(1/2))", "-10+1", "2/(1/2)"};
 
     for (int i = 0; i<sizeof(testcase)/sizeof(testcase[0]) ; i++){
         evaluate(testcase[i]);
@@ -104,6 +105,7 @@ void evaluate (string str){
             //if stack s1 is empty or the top of the s1 is open parentheses or the current opeerator is a open parentheses 
             //push the operator into s1
             if (s1.empty()||str[i]=='('||s1.top()=='('){
+                //deal with 3(...) = 3*(...)
                 if (i>0 && str[i]=='(' && isdigit(str[i-1])){
                     s1.push('*');
                 }
@@ -136,6 +138,8 @@ void evaluate (string str){
                     s1.pop();
                 }
                 s1.pop();
+
+                //deal with (...)3 = (...)*3
                 if (i>1 && isdigit(str[i+1])){
                     s1.push('*');
                 }
