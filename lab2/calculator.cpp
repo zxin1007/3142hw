@@ -73,7 +73,6 @@ struct Calculator{
 int main() {
 
     char input[100]; //user input
-    vector<string> sorted;
 
     stack<char> s1; 
     vector<string> s2;
@@ -84,86 +83,56 @@ int main() {
     scanf("%s",input);
     string str(input);
 
-    int index = 0; //store the postion of currrent operand
-    int i=0; //
+    int index = 0; //use to keep track the last operand
+    string operand = ""; //store the current digit
+    int i=0;
 
     if (str[0]=='-'){ //if the first pace was a - which means it's negative
         i++;
+        operand+= (char)str[0];
     } 
 
-    //iterate through user's input
-    //split operand and operator into vector sorted by locating the operator
-    for (i=i;i<str.size();i++){
-
-        if (str[i]!=' '){
-            //detect if it's operater
-            if (!isdigit(str[i]))
-                if (str[i]=='('){
-                    sorted.push_back(str.substr(i,1));
-                    index = i+1;
-                } else if (str[i]==')'){
-                    sorted.push_back(str.substr(index,i-index));
-                    sorted.push_back(str.substr(i,1));
-                    index=i+1;
-                    if (i<str.size()-1 && !isdigit(str[i+1])){
-                        index+=1;
-                    }
-                } else if (str[i]=='^'){
-                    sorted.push_back(str.substr(index,i-index));
-                    sorted.push_back(str.substr(i,1));
-                    index=i+1;
-                    if (i<str.size()-1 && !isdigit(str[i+1])){
-                        index+=1;
-                    }
-                }else {
-                    if (i>0 && !isdigit(str[i-1]) && (str[i-1]==')'||str[i-1]=='^')){
-                        sorted.push_back(str.substr(i,1));
-                    } else{
-                        sorted.push_back(str.substr(index,i-index));
-                        sorted.push_back(str.substr(i,1));
-                    }
-                    index=i+1;
-                }
-            } 
-        } 
-    }
-    //detect if the last place is a number and added to vector
-    if (index< str.size() && isdigit(str[str.size()-1])){
-        sorted.push_back(str.substr(index,str.size()));
-    }
-
-    //iterate through the sorted user input
+    //iterate through the user input
     //s1 will store the the operators and use to check the precedence of operators 
     //s2 will store the operands and operators in precedence.
-    for (int i = 0; i < sorted.size() ;i++){
-        
-        string s(sorted[i]);
+    for (i = i; i < str.size() ;i++){
 
-        // add the operand to s2
-        if (s.length()>1 || isdigit(s[0])){
-            s2.push_back(sorted[i]);
-        } else { //if it operator
+        if (!isdigit(str[i])){
+
+            if (operand!=""){ //push in the tracked operand before this operator
+                s2.push_back(operand);
+                operand="";
+                //printf("%s\n", operand.c_str());
+                index = i+1;
+            }
             //if stack s1 is empty or the top of the s1 is open parentheses or the current opeerator is a open parentheses 
             //push the operator into s1
-            if (s1.empty()||s[0]=='('||s1.top()=='('){
-                s1.push(s[0]);
-            } else if (s[0]!=')'){ 
+            if (s1.empty()||str[i]=='('||s1.top()=='('){
+                if (i>0 && str[i]=='(' && isdigit(str[i-1])){
+                    s1.push('*');
+                }
+                s1.push(str[i]);
+            } else if (str[i]!=')'){ 
                 //if the operator is not a close parentheses
                 //check the priority of the operator
                 //if current operator is prior than stack's top, push it to stack
-                if (cal.check(s[0])>cal.check(s1.top())){
-                    s1.push(s[0]);
+                if (cal.check(str[i])>cal.check(s1.top())){
+                        s1.push(str[i]);
                 } else {
                     //if it's not prior than stack top, push the the top into s2, and pop the top of stack which result in empty stack/a new top
                     //keep comparing the top until the stack is empty or the current operator is prior than top
-                    while (!s1.empty() && s1.top()!='(' && cal.check(s[0])<=cal.check(s1.top())){
+                    while (!s1.empty() && s1.top()!='(' && cal.check(str[i])<=cal.check(s1.top())){
                         string top (1,s1.top());
                         s2.push_back(top);
                         s1.pop();
                     }  
-                    s1.push(s[0]);
+                    s1.push(str[i]);
                 }
-            } else if (s[0]==')'){ //if the operator is close parentheses
+
+                if (i<str.size()-1 && !isdigit(str[i+1])){
+                    index+=1;
+                }
+            } else if (str[i]==')'){ //if the operator is close parentheses
                 //push the top into s2 unitl top is a open parentheses
                 while (s1.top()!='('){
                     string top (1,s1.top());
@@ -171,9 +140,24 @@ int main() {
                     s1.pop();
                 }
                 s1.pop();
+                if (i>1 && isdigit(str[i+1])){
+                    s1.push('*');
+                }
+                if (i<str.size()-1 && !isdigit(str[i+1])){
+                    index+=1;
+                }
             }
+        } else {
+            operand += (char) str[i];
         }
+
     }
+
+    //detect if the last place is a number and added to s2
+    if (index< str.size() && isdigit(str[str.size()-1])){
+        s2.push_back(str.substr(index,str.size()));
+    }
+
     //if s1 is not empty push all the rest operator into s2
     while (!s1.empty()){
         string top (1,s1.top());
@@ -186,7 +170,6 @@ int main() {
 
     //iterate through s2
     for (int i = 0; i < s2.size();i++){
-
         //if it a number, push it the value stack
         if (strlen(s2[i].c_str())>1 || atoi(s2[i].c_str())){
             values.push(atoi(s2[i].c_str()));
