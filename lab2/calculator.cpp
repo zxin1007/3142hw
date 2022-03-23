@@ -5,8 +5,7 @@
 #include <vector>
 
 using namespace std; 
-
-int check(char x);
+void evaluate(string str);
 
 struct Calculator{
     
@@ -19,8 +18,6 @@ struct Calculator{
     }
 
     double calculate(double value1, double value2, char c){
-        printf("%.2f %c %.2f\n",value1,c,value2);
-
         switch (c)
         {
             case add:
@@ -52,39 +49,38 @@ struct Calculator{
 
     //check the priority of operators
     int check (char x){ 
-    switch (x)
-    {
-        case add:
-        case subtract:
-            return 1;
-        case divide:
-        case multiple:
-            return 2;
-        case exp:
-            return 3;
-        default:
-            return -1;
+        switch (x)
+        {
+            case add:
+            case subtract:
+                return 1;
+            case divide:
+            case multiple:
+                return 2;
+            case exp:
+                return 3;
+            default:
+                return -1;
+        }
     }
-}
-
-};
-
+}cal; //calculator
 
 int main() {
 
-    char input[100]; //user input
+    string testcase []= { "1+2*3", "(17+2*2)/(10-2)", "9^(1/2)", "4+1/8*1", "3(3*3)-12" ,"3(9^(1/2))", "-10+1", "2*(1/2)"};
 
+    for (int i = 0; i<sizeof(testcase)/sizeof(testcase[0]) ; i++){
+        evaluate(testcase[i]);
+    }
+
+    printf("--finished--\n");
+}
+
+void evaluate (string str){
     stack<char> s1; 
     vector<string> s2;
-    
-    struct Calculator cal; //calculator
-
-    printf ("Enter the equation: \n");
-    scanf("%s",input);
-    string str(input);
-
-    int index = 0; //use to keep track the last operand
     string operand = ""; //store the current digit
+    int index = 0; //use to keep track the last operand
     int i=0;
 
     if (str[0]=='-'){ //if the first pace was a - which means it's negative
@@ -189,6 +185,5 @@ int main() {
         }
     }
     //end; print the sum
-    printf("The result of %s is %.2f\n", str.c_str(), cal.sum);
-
+    printf("The result of %s is %.2f\n\n", str.c_str(), cal.sum);
 }
