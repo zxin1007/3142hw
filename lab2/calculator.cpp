@@ -3,6 +3,7 @@
 #include <math.h>  
 #include <stack>
 #include <vector>
+#include <fstream>
 
 using namespace std; 
 void evaluate(string str);
@@ -68,11 +69,18 @@ struct Calculator{
 int main() {
 
     //test cases
-    string testcase []= { "1+2*3", "(17+2*2)/(10-2)", "9^(1/2)", "4+1/8*1", "3(3*3)-12" ,"3(9^(1/2))", "-10+1", "2/(1/2)"};
+    ifstream in_stream;
+    in_stream.open("testcase.txt"); //opening the file.
 
-    for (int i = 0; i<sizeof(testcase)/sizeof(testcase[0]) ; i++){
-        evaluate(testcase[i]);
+    if (!in_stream.fail()) { //if the file is open
+        string line;
+
+        while (getline(in_stream,line)) {
+            evaluate(line);
+        }
     }
+
+    in_stream.close();
 
     printf("--finished--\n");
 }
