@@ -1,3 +1,7 @@
+// Zixin Zou
+//This calculator program will translate user/file input of strings
+//translate the string into postfix expression
+//and calculate the result
 #include <iostream>
 #include<stdio.h>
 #include <math.h>  
@@ -151,6 +155,7 @@ void evaluate (string str){
                 if (i>1 && isdigit(str[i+1])){
                     s1.push('*');
                 }
+                //deal with consecutive operator
                 if (i<str.size()-1 && !isdigit(str[i+1])){
                     index+=1;
                 }
