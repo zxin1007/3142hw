@@ -92,7 +92,7 @@ int main() {
 
     in_stream.close();
 
-    printf("--finished--\n");
+    printf("--finished-- Modify testcase.txt for expressions \n");
 }
 
 void evaluate (string str){
@@ -166,10 +166,9 @@ void evaluate (string str){
                     index+=1;
                 }
             }
-        } else {
+        } else if (str[i]>='0'&&str[i]<='9'){
             operand += (char) str[i];
-        }
-
+        } 
     }
 
     //detect if the last place is a number and added to s2
