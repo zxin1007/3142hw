@@ -2,6 +2,12 @@
 //This calculator program will translate user/file input of strings
 //translate the string into postfix expression
 //and calculate the result
+
+// write the expression in the testcase.txt.
+// have () for square root such as 9^(1/2)
+// no () need for exp
+// - for minus, + for add, * for multiply, / for divide
+
 #include <iostream>
 #include<stdio.h>
 #include <math.h>  
@@ -86,7 +92,7 @@ int main() {
 
     in_stream.close();
 
-    printf("--finished--\n");
+    printf("--finished-- Modify testcase.txt for expressions \n");
 }
 
 void evaluate (string str){
@@ -160,10 +166,9 @@ void evaluate (string str){
                     index+=1;
                 }
             }
-        } else {
+        } else if (str[i]>='0'&&str[i]<='9'){
             operand += (char) str[i];
-        }
-
+        } 
     }
 
     //detect if the last place is a number and added to s2
