@@ -152,7 +152,7 @@ void evaluate (string str){
                 s1.pop();
 
                 //deal with (...)3 = (...)*3
-                if (i>1 && isdigit(str[i+1])){
+                if (i>1 && (isdigit(str[i+1])||str[i+1]=='(')){
                     s1.push('*');
                 }
                 //deal with consecutive operator
