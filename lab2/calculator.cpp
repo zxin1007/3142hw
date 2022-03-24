@@ -112,7 +112,7 @@ void evaluate (string str){
     //s2 will store the operands and operators in precedence.
     for (i = i; i < str.size() ;i++){
 
-        if (!isdigit(str[i])){
+        if (!isdigit(str[i]) && str[i]!='.'){
 
             if (operand!=""){ //push in the tracked operand before this operator
                 s2.push_back(operand);
@@ -166,7 +166,7 @@ void evaluate (string str){
                     index+=1;
                 }
             }
-        } else if (str[i]>='0'&&str[i]<='9'){
+        } else if ((str[i]>='0'&&str[i]<='9') || str[i]=='.'){
             operand += (char) str[i];
         } 
     }
@@ -189,8 +189,8 @@ void evaluate (string str){
     //iterate through s2
     for (int i = 0; i < s2.size();i++){
         //if it a number, push it the value stack
-        if (strlen(s2[i].c_str())>1 || atoi(s2[i].c_str())){
-            values.push(atoi(s2[i].c_str()));
+        if (strlen(s2[i].c_str())>1 || atof(s2[i].c_str())){
+            values.push(atof(s2[i].c_str()));
         }  else {
             //if it operator
             //get the two element from value stack
