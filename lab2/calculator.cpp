@@ -9,11 +9,12 @@
 // - for minus, + for add, * for multiply, / for divide
 
 #include <iostream>
-#include<stdio.h>
+#include <stdio.h>
 #include <math.h>  
 #include <stack>
 #include <vector>
 #include <fstream>
+#include <string.h>
 
 using namespace std; 
 void evaluate(string str);
@@ -114,7 +115,7 @@ void evaluate (string str){
 
         if (!isdigit(str[i]) && str[i]!='.'){
 
-            if (operand!=""){ //push in the tracked operand before this operator
+            if (operand!=""&&operand[0]!='0'){ //push in the tracked operand before this operator
                 s2.push_back(operand);
                 operand="";
                 //printf("%s\n", operand.c_str());
