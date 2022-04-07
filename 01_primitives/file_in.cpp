@@ -158,6 +158,8 @@ int main() {
     }
     myfile << unqiueYear[j] << " (" << count << "):" << skus.substr(0, skus.size()-1) << endl;
   }
+
+  cout << "-- Finished --" << endl;
   in_stream.close();
   myfile.close();
 }
