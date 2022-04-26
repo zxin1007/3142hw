@@ -1,0 +1,28 @@
+{
+    "files.associations": {
+        "*.ejs": "html",
+        "vector": "cpp",
+        "stack": "cpp",
+        "iosfwd": "cpp",
+        "string": "cpp",
+        "ostream": "cpp",
+        "set": "cpp",
+        "deque": "cpp",
+        "functional": "cpp",
+        "hash_map": "cpp",
+        "unordered_map": "cpp",
+        "__split_buffer": "cpp",
+        "__locale": "cpp",
+        "sstream": "cpp",
+        "iostream": "cpp",
+        "__bit_reference": "cpp",
+        "__hash_table": "cpp",
+        "__tree": "cpp",
+        "array": "cpp",
+        "initializer_list": "cpp",
+        "iterator": "cpp",
+        "string_view": "cpp",
+        "bitset": "cpp",
+        "algorithm": "cpp"
+    }
+}
