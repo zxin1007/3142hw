@@ -16,7 +16,7 @@ void pass_rate(vector<Student> vector, int mode){
         myfile.open ("../output/passratePerInstructor.txt");
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
             int pass_grade = count(vector,it->first,true,mode);
-            myfile << "passing rate for instructor " << it->first << " is " << (float)pass_grade/it->second << endl;
+            myfile << "passing rate for instructor " << it->first << " is " << ((float)pass_grade/it->second)*100 << "%" << endl;
         }
         myfile.close();
     } else if (mode == 2){
@@ -24,7 +24,7 @@ void pass_rate(vector<Student> vector, int mode){
         myfile.open ("../output/passratePerCourseNumber.txt");
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
             int pass_grade = count(vector,it->first,true,mode);
-            myfile << "passing rate for course number " << it->first << " is " << (float)pass_grade/it->second << endl;
+            myfile << "passing rate for course number " << it->first << " is " << ((float)pass_grade/it->second)*100 << "%" << endl;
         }
         myfile.close();
     } else if (mode == 3){
@@ -32,7 +32,7 @@ void pass_rate(vector<Student> vector, int mode){
         myfile.open ("../output/passratePerTerm.txt");
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
             int pass_grade = count(vector,it->first,true,mode);
-            myfile << "passing rate for term " << it->first << " is " << (float)pass_grade/it->second << endl;
+            myfile << "passing rate for term " << it->first << " is " << ((float)pass_grade/it->second)*100 << "%" << endl;
         }
         myfile.close();
     }
@@ -47,7 +47,7 @@ void w_rate(vector<Student> vector, int mode){
         myfile.open ("../output/wratePerInstructor.txt");
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
             int w_grade = count(vector,it->first,false,mode);
-            myfile << "w rate for instructor " << it->first << " is " << (float)w_grade/it->second << endl;
+            myfile << "w rate for instructor " << it->first << " is " << ((float)w_grade/it->second)*100 << "%" << endl;
         }
         myfile.close();
     } else if (mode == 2){
@@ -55,7 +55,7 @@ void w_rate(vector<Student> vector, int mode){
         myfile.open ("../output/wratePerCourseNumber");
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
             int w_grade = count(vector,it->first,false,mode);
-            myfile << "w rate for course number " << it->first << " is " << (float)w_grade/it->second << endl;
+            myfile << "w rate for course number " << it->first << " is " << ((float)w_grade/it->second)*100 << "%" << endl;
         }
         myfile.close();
     } else if (mode == 3){
@@ -63,7 +63,7 @@ void w_rate(vector<Student> vector, int mode){
         myfile.open ("../output/wratePerTerm.txt");
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
             int w_grade = count(vector,it->first,false,mode);
-            myfile << "w rate for term " << it->first << " is " << (float)w_grade/it->second << endl;
+            myfile << "w rate for term " << it->first << " is " << ((float)w_grade/it->second)*100 << "%" << endl;
         }
         myfile.close();
     }
