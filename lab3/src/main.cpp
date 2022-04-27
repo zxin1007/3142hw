@@ -25,5 +25,5 @@ int main (){
 
     printf("Grade for student %s is %s\n", student_enroll.getId().c_str(), student_enroll.getGrade().c_str());
 
-    printf("--- Finish execution ---");
+    printf("--- Finish execution, outputs are under the output folder ---");
 }
