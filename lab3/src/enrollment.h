@@ -1,4 +1,5 @@
 #include <string>
+//class of student new enrollement
 class StudentEnroll{
     private:
         string emplid;

@@ -10,6 +10,7 @@
 using namespace std;
 bool has_suffix(const string& s, const string& suffix);
 
+//reading in the data
 void readData(vector<Student>& student){
 
     //read the files name under data
@@ -48,6 +49,7 @@ void readData(vector<Student>& student){
 
                         getline(str,term_temp.term_id,',');
                         
+                        //determine the name of term based on the term id
                         if (term_temp.term_id=="T04"||term_temp.term_id=="T08"||term_temp.term_id=="T12"||term_temp.term_id=="T16"||term_temp.term_id=="T20"||term_temp.term_id=="T23"){
                             term_temp.term_name = "Fall";
                         } else {
@@ -56,6 +58,7 @@ void readData(vector<Student>& student){
 
                         getline(str,course_temp.section_id,',');
 
+                        //determine the whether the grade is passing/withdraw/fail
                         getline(str,stu.grade,',');
                         if (stu.grade=="A+"||stu.grade=="A"||stu.grade=="A-"||stu.grade=="B+"||stu.grade=="B"||stu.grade=="B-"||stu.grade=="C+"||stu.grade=="C"){
                             stu.pass = 'p';
@@ -82,11 +85,13 @@ void readData(vector<Student>& student){
     closedir(dir);
 }
 
+//check the file extension matches
 bool has_suffix(const string& s, const string& suffix)
 {
     return (s.size() >= suffix.size()) && equal(suffix.rbegin(), suffix.rend(), s.rbegin());    
 }
 
+//writing data into different files.
 void writeToFile(string file_name, bool pass ,int mode, map<string,float> data){
 
     string type;
