@@ -9,11 +9,11 @@
 using namespace std;
 bool has_suffix(const string& s, const string& suffix);
 
-void readData(vector<Student>& student, vector<Instructor>& instructor,vector<Course> &course){
+void readData(vector<Student>& student){
 
     //read the files name under data
     string path = "../data";
-    string emplid, courseno, instructorid, termid, sectionid, grade;
+    string courseno;
     DIR *dir = opendir(path.c_str());
     if(dir)
     {
@@ -67,9 +67,7 @@ void readData(vector<Student>& student, vector<Instructor>& instructor,vector<Co
                         ins.term = term_temp;
                         course_temp.term = term_temp;
                         stu.instructor = ins;
-                        instructor.push_back(ins);
                         student.push_back(stu);
-                        course.push_back(course_temp);
                     }
                 }
 
