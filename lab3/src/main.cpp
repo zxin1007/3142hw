@@ -4,6 +4,7 @@
 int main (){
     vector<Student> student;
 
+    //read in the data
     readData(student);
 
     //mode 1 = instructor

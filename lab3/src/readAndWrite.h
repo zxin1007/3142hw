@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <algorithm>
 #include <vector>
+#include <map>
 #include "record.h"
 using namespace std;
 bool has_suffix(const string& s, const string& suffix);
@@ -84,4 +85,32 @@ void readData(vector<Student>& student){
 bool has_suffix(const string& s, const string& suffix)
 {
     return (s.size() >= suffix.size()) && equal(suffix.rbegin(), suffix.rend(), s.rbegin());    
+}
+
+void writeToFile(string file_name, bool pass ,int mode, map<string,float> data){
+
+    string type;
+    string rate_type;
+
+    if (mode==1){
+        type = "instructor";
+    } else if(mode==2){
+        type = "course number";
+    } else if (mode==3){
+        type = "term";
+    }
+
+    if (pass){
+        rate_type = "pass rate";
+    } else{
+        rate_type = "w rate";
+    }
+
+    ofstream myfile;
+    myfile.open (file_name.c_str());
+
+    for (map<string,float>::iterator it=data.begin(); it!=data.end(); ++it){
+        myfile << "the " << rate_type << " for " << type.c_str() << it->first.c_str() << " is " << it->second << "%" << endl;
+    }
+    myfile.close();
 }

@@ -9,64 +9,58 @@ map<string,int> max (vector<Student> vector,int mode);
 
 void pass_rate(vector<Student> vector, int mode){
 
-    map<string,int> myMap = max(vector,mode);
-
+    map<string,int> myMap = max(vector,mode); //stores the number of pass student per (instructor/course number/term) base on the mode
+    map<string,float> dataTobePrint;
+    string file_name;
     if (mode == 1){
-        ofstream myfile;
-        myfile.open ("../output/passratePerInstructor.txt");
+        file_name = "../output/passratePerInstructor.txt";
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
-            int pass_grade = count(vector,it->first,true,mode);
-            myfile << "passing rate for instructor " << it->first << " is " << ((float)pass_grade/it->second)*100 << "%" << endl;
+            float pass_rate = ((float)count(vector,it->first,true,mode)/it->second)*100;
+            dataTobePrint.insert(pair<string,float>(it->first.c_str(), pass_rate));
         }
-        myfile.close();
     } else if (mode == 2){
-        ofstream myfile;
-        myfile.open ("../output/passratePerCourseNumber.txt");
+        file_name = "../output/passratePerCourseNumber.txt";
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
-            int pass_grade = count(vector,it->first,true,mode);
-            myfile << "passing rate for course number " << it->first << " is " << ((float)pass_grade/it->second)*100 << "%" << endl;
+            float pass_rate = ((float)count(vector,it->first,true,mode)/it->second)*100;
+            dataTobePrint.insert(pair<string,float>(it->first.c_str(), pass_rate));
         }
-        myfile.close();
     } else if (mode == 3){
-        ofstream myfile;
-        myfile.open ("../output/passratePerTerm.txt");
+       file_name = "../output/passratePerTerm.txt";
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
-            int pass_grade = count(vector,it->first,true,mode);
-            myfile << "passing rate for term " << it->first << " is " << ((float)pass_grade/it->second)*100 << "%" << endl;
+            float pass_rate = ((float)count(vector,it->first,true,mode)/it->second)*100;
+            dataTobePrint.insert(pair<string,float>(it->first.c_str(), pass_rate));
         }
-        myfile.close();
     }
+
+    writeToFile(file_name,true ,mode, dataTobePrint);
 }
 
 void w_rate(vector<Student> vector, int mode){
 
     map<string,int> myMap = max(vector,mode);
-
+    map<string,float> dataTobePrint;
+    string file_name;
     if (mode == 1){
-        ofstream myfile;
-        myfile.open ("../output/wratePerInstructor.txt");
+        file_name = "../output/wratePerInstructor.txt";
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
-            int w_grade = count(vector,it->first,false,mode);
-            myfile << "w rate for instructor " << it->first << " is " << ((float)w_grade/it->second)*100 << "%" << endl;
+            float w_rate = ((float)count(vector,it->first,false,mode)/it->second)*100;
+            dataTobePrint.insert(pair<string,float>(it->first.c_str(), w_rate));
         }
-        myfile.close();
     } else if (mode == 2){
-        ofstream myfile;
-        myfile.open ("../output/wratePerCourseNumber");
+        file_name = "../output/wratePerCourseNumber";
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
-            int w_grade = count(vector,it->first,false,mode);
-            myfile << "w rate for course number " << it->first << " is " << ((float)w_grade/it->second)*100 << "%" << endl;
+            float w_rate = ((float)count(vector,it->first,false,mode)/it->second)*100;
+            dataTobePrint.insert(pair<string,float>(it->first.c_str(), w_rate));
         }
-        myfile.close();
     } else if (mode == 3){
-        ofstream myfile;
-        myfile.open ("../output/wratePerTerm.txt");
+        file_name = "../output/wratePerTerm.txt";
         for (map<string,int>::iterator it=myMap.begin(); it!=myMap.end(); ++it){
-            int w_grade = count(vector,it->first,false,mode);
-            myfile << "w rate for term " << it->first << " is " << ((float)w_grade/it->second)*100 << "%" << endl;
+            float w_rate = ((float)count(vector,it->first,false,mode)/it->second)*100;
+            dataTobePrint.insert(pair<string,float>(it->first.c_str(), w_rate));
         }
-        myfile.close();
     }
+
+    writeToFile(file_name, false,mode, dataTobePrint);
 
 }
 
