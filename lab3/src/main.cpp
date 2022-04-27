@@ -1,16 +1,23 @@
 #include "readAndWrite.h"
-
+#include "function.h"
+#include "enrollment.h"
 int main (){
     vector<Student> student;
     vector<Instructor> instructor;
     vector<Course> course;
     vector<Term> term;
 
-    readData(student,instructor,course,term);
+    readData(student,instructor,course);
 
-    cout << term.size() << endl;
+    //mode 1 = instructor
+    //modee 2 = course number
+    //mode 3 = term
+    int mode;
 
-    for (int i = 0; i < term.size();i++){
-        cout << term[i].term_id << endl;
-    }
+    pass_rate(student, 3);
+
+    //class for new enrollment
+    StudentEnroll student_enroll("123", "T10");
+
+    printf("--- Finish execution ---");
 }
