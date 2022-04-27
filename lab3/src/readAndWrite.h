@@ -115,7 +115,7 @@ void writeToFile(string file_name, bool pass ,int mode, map<string,float> data){
     myfile.open (file_name.c_str());
 
     for (map<string,float>::iterator it=data.begin(); it!=data.end(); ++it){
-        myfile << "the " << rate_type << " for " << type.c_str() << it->first.c_str() << " is " << it->second << "%" << endl;
+        myfile << "the " << rate_type << " for " << type.c_str() << " " << it->first.c_str() << " is " << it->second << "%" << endl;
     }
     myfile.close();
 }
