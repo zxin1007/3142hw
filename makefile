@@ -7,8 +7,8 @@ lab2: calculator
 calculator: 
 	cd lab2 && g++ calculator.cpp -o calculator
 
-lab3: main
-	cd lab3/src && ./main
+lab3: main 
+		cd lab3 && mkdir -p output && cd src && ./main
 
 main:
 	cd lab3/src && g++ main.cpp -o main
