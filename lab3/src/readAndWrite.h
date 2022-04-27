@@ -9,7 +9,7 @@
 using namespace std;
 bool has_suffix(const string& s, const string& suffix);
 
-void readData(vector<Student>& student, vector<Instructor>& instructor,vector<Course> &course, vector<Term> &term){
+void readData(vector<Student>& student, vector<Instructor>& instructor,vector<Course> &course){
 
     //read the files name under data
     string path = "../data";
@@ -39,16 +39,11 @@ void readData(vector<Student>& student, vector<Instructor>& instructor,vector<Co
                         stringstream str(line); 
                         //read in the emplid
                         getline(str,stu.id,',');
-                        //cout << stu.id << " ";
 
                         getline(str,courseno,',');
                         course_temp.course_id = atoi(courseno.c_str());
-                        //stu.course_num = atoi(courseno.c_str());
-                        //cout << courseno << " ";
 
                         getline(str,ins.instructor_id,',');
-
-                        //cout << instructorid << " ";
 
                         getline(str,term_temp.term_id,',');
                         
@@ -57,23 +52,24 @@ void readData(vector<Student>& student, vector<Instructor>& instructor,vector<Co
                         } else {
                             term_temp.term_name = "Spring";
                         }
-                        //cout << termid << " ";
 
                         getline(str,course_temp.section_id,',');
-                        //cout << sectionid << " ";
 
                         getline(str,stu.grade,',');
-                        //stu.grade = grade;
-                        //cout << grade << endl;
-
-                        stu.course = course_temp;
+                        if (stu.grade=="A+"||stu.grade=="A"||stu.grade=="A-"||stu.grade=="B+"||stu.grade=="B"||stu.grade=="B-"||stu.grade=="C+"||stu.grade=="C"){
+                            stu.pass = 'p';
+                        } else if (stu.grade=="W"||stu.grade=="WU"||stu.grade=="WD"){
+                            stu.pass = 'w';
+                        } else{
+                            stu.pass = 'f';
+                        }
                         ins.course = course_temp;
                         ins.term = term_temp;
                         course_temp.term = term_temp;
-                        student.push_back(stu);
+                        stu.instructor = ins;
                         instructor.push_back(ins);
+                        student.push_back(stu);
                         course.push_back(course_temp);
-                        term.push_back(term_temp);
                     }
                 }
 
