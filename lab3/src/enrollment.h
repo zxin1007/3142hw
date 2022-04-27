@@ -6,15 +6,19 @@ class StudentEnroll{
         string course_num;
 
     public:
-        StudentEnroll(string emplid,string course){
-            emplid = emplid;
+        StudentEnroll(string id,string course){
+            emplid = id;
             course_num = course;
         }
-        void setGrade(string grade){
-            grade = grade;
+        void setGrade(string newGrade){
+            grade = newGrade;
         }
         
         string getGrade(){
             return grade;
+        }
+
+        string getId(){
+            return emplid;
         }
 };
